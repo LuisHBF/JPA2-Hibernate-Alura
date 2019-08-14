@@ -8,6 +8,8 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<!-- Aqui são listadas todas as entidades -->
 		<class>modelo.Conta</class>
+		<class>modelo.Movimentacao</class>
+	
 		<properties>
 			<!-- Propriedades JDBC -->
 			<property name="javax.persistence.jdbc.driver"

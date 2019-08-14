@@ -29,8 +29,14 @@ public class TesteConta {
 		conta.setTitular("Clau");
 		em2.merge(conta);
 		
+		conta = em2.find(Conta.class, 1);
+		em2.remove(conta);
+		
 		em2.getTransaction().commit();
 		em2.close();
+		
+		
+		
 		
 	}
 }

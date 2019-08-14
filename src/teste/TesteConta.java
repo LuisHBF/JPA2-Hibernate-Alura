@@ -17,9 +17,20 @@ public class TesteConta {
 		EntityManager em = new JPAUtil().getEntityManager();
 		em.getTransaction().begin();
 		em.persist(conta);
-		conta.setTitular("Felipe");
-		em.getTransaction().commit();
 		
+		conta.setTitular("Felipe");
+		
+		em.getTransaction().commit();
 		em.close();
+		
+		EntityManager em2 = new JPAUtil().getEntityManager();
+		em2.getTransaction().begin();
+		
+		conta.setTitular("Clau");
+		em2.merge(conta);
+		
+		em2.getTransaction().commit();
+		em2.close();
+		
 	}
 }

@@ -1,10 +1,9 @@
 package teste;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import modelo.Conta;
+import util.JPAUtil;
 
 public class TesteConta {
 
@@ -15,14 +14,12 @@ public class TesteConta {
 		conta.setBanco("BB");
 		conta.setNumero("456");
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("financas");
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = new JPAUtil().getEntityManager();
 		
 		em.getTransaction().begin();
 		em.persist(conta);
 		em.getTransaction().commit();
 		
 		em.close();
-		emf.close();
 	}
 }

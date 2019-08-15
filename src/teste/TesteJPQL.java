@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import modelo.Categoria;
 import modelo.Conta;
 import modelo.Movimentacao;
 import modelo.TipoMovimentacao;
@@ -17,13 +18,11 @@ public class TesteJPQL {
 		EntityManager manager = new JPAUtil().getEntityManager();
 		manager.getTransaction().begin();
 		
-		Conta conta = manager.find(Conta.class, 2);
+		Categoria categoria = manager.find(Categoria.class, 1);
 		
-		String jpql = "SELECT m FROM Movimentacao m WHERE m.conta = :pConta AND m.tipo = :pTipo "
-				+ "ORDER BY m.valor DESC";
+		String jpql = "SELECT m from Movimentacao m join m.categorias c where c = :pCategoria";
 		Query query = manager.createQuery(jpql);
-		query.setParameter("pConta", conta);
-		query.setParameter("pTipo", TipoMovimentacao.SAIDA);
+		query.setParameter("pCategoria", categoria);
 		
 		List<Movimentacao> resultados = query.getResultList();
 		

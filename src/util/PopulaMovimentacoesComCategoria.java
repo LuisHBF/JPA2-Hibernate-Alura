@@ -1,5 +1,4 @@
-package teste;
-
+package util;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -10,9 +9,8 @@ import modelo.Categoria;
 import modelo.Conta;
 import modelo.Movimentacao;
 import modelo.TipoMovimentacao;
-import util.JPAUtil;
 
-public class TesteMovimentacoesComCategoria {
+public class PopulaMovimentacoesComCategoria {
 
 	public static void main(String[] args) {
 		
@@ -28,7 +26,9 @@ public class TesteMovimentacoesComCategoria {
 		Conta conta = manager.find(Conta.class, 2);
 
 		Movimentacao movimentacao = new Movimentacao();
-		movimentacao.setData(Calendar.getInstance());
+		Calendar amanha = Calendar.getInstance();
+		amanha.add(Calendar.DAY_OF_MONTH, 1);
+		movimentacao.setData(amanha);
 		movimentacao.setDescricao("Viagem a SP");
 		movimentacao.setTipo(TipoMovimentacao.SAIDA);
 		movimentacao.setValor(new BigDecimal("1000.0"));

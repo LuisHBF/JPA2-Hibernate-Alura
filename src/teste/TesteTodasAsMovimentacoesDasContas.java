@@ -11,7 +11,7 @@ import util.JPAUtil;
 public class TesteTodasAsMovimentacoesDasContas {
 
 	public static void main(String[] args) {
-		
+			
 		EntityManager manager = new JPAUtil().getEntityManager();
 		manager.getTransaction().begin();
 		

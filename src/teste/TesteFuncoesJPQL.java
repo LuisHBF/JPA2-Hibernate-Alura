@@ -3,9 +3,11 @@ package teste;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.print.attribute.standard.Media;
 
+import dao.MovimentacaoDAO;
 import modelo.Categoria;
+import modelo.Conta;
 import modelo.TipoMovimentacao;
 import util.JPAUtil;
 
@@ -14,19 +16,12 @@ public class TesteFuncoesJPQL {
 	public static void main(String[] args) {
 		
 		EntityManager manager = new JPAUtil().getEntityManager();
-		manager.getTransaction().begin();
+		manager.getTransaction().begin();		
 		
-		Categoria categoria = manager.find(Categoria.class, 1);
+		MovimentacaoDAO movimentacaoDAO = new MovimentacaoDAO(manager);
 		
-		String jpql = "SELECT avg(m.valor) from Movimentacao m join m.categorias c where c = :pCategoria AND m.tipo = :pTipo"
-				+ " group by day(m.data), month(m.data), year(m.data)";
-		TypedQuery<Double> query = manager.createQuery(jpql,Double.class);
-		query.setParameter("pCategoria", categoria);
-		query.setParameter("pTipo", TipoMovimentacao.ENTRADA);
-		
-		List<Double> medias = (List<Double>) query.getResultList();
-			
-		medias.forEach(media -> {
+		List<Double> medias = movimentacaoDAO.getMediasPorDiaETipo(TipoMovimentacao.SAIDA, manager.find(Conta.class, 1));
+		medias .forEach(media -> {
 			System.out.println("media: " + media);
 		});
 		

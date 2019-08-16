@@ -3,6 +3,7 @@ package teste;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.print.attribute.standard.Media;
 
 import dao.MovimentacaoDAO;
@@ -20,11 +21,15 @@ public class TesteFuncoesJPQL {
 		
 		MovimentacaoDAO movimentacaoDAO = new MovimentacaoDAO(manager);
 		
-		List<Double> medias = movimentacaoDAO.getMediasPorDiaETipo(TipoMovimentacao.SAIDA, manager.find(Conta.class, 1));
+		Conta conta = manager.find(Conta.class, 1);
+		List<Double> medias = movimentacaoDAO.getMediasPorDiaETipo(TipoMovimentacao.SAIDA, conta);
 		medias .forEach(media -> {
 			System.out.println("media: " + media);
 		});
 		
+		TypedQuery<Double> typedQuery = manager.createNamedQuery("MediasPorDiaETipo",Double.class);			
+		typedQuery.setParameter("pConta", conta);
+		typedQuery.setParameter("pTipo", TipoMovimentacao.ENTRADA);
 		manager.getTransaction().commit();
 		manager.close();
 	}

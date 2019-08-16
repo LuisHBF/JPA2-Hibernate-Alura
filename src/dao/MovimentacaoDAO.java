@@ -7,7 +7,6 @@ import javax.persistence.TypedQuery;
 
 import modelo.Conta;
 import modelo.TipoMovimentacao;
-import util.JPAUtil;
 
 public class MovimentacaoDAO {
 

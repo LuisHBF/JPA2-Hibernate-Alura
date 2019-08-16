@@ -15,7 +15,7 @@ public class TesteTodasAsMovimentacoesDasContas {
 		EntityManager manager = new JPAUtil().getEntityManager();
 		manager.getTransaction().begin();
 		
-		String jpql = "SELECT c from Conta c JOIN fetch c.movimentacoes";
+		String jpql = "SELECT DISTINCT c from Conta c LEFT JOIN fetch c.movimentacoes";
 		Query query = manager.createQuery(jpql);
 		
 		List<Conta> todasAsContas = query.getResultList();
